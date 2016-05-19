@@ -18,4 +18,32 @@ class Array
     pairs
   end
 
+  def my_transpose
+    transposed = Array.new(self[0].length) { Array.new } unless self.empty?
+    transposed ||= []
+    self.each_with_index do |row, row_idx|
+      row.each_with_index do |el, col_idx|
+        transposed[col_idx][row_idx] = el
+      end
+    end
+    transposed
+  end
+
+  def stock_picker
+    max_diff = 0
+    max_diff_indicies = []
+    (self.count - 1).times do |i|
+      self[(i + 1)..-1].each_with_index do |price, j|
+        this_diff = price - self[i]
+        if this_diff > max_diff
+          max_diff = this_diff
+          max_diff_indicies = [i, (j + i + 1)]
+        end
+      end
+    end
+    max_diff_indicies
+  end
+
+
+
 end
